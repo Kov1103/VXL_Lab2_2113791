@@ -49,6 +49,8 @@ TIM_HandleTypeDef htim2;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_TIM2_Init(void);
+static void MX_GPIO_Init(void);
+void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -85,8 +87,8 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
   MX_TIM2_Init();
+  MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_BASE_Start_IT(&htim2);
   /* USER CODE END 2 */
@@ -100,6 +102,16 @@ int main(void)
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
+}
+
+int counter = 100;
+void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
+{
+	counter --;
+	if( counter <= 0){
+		counter = 100;
+		HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin );
+	}
 }
 
 /**
@@ -179,6 +191,30 @@ static void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : LED_RED_Pin */
+  GPIO_InitStruct.Pin = LED_RED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED_RED_GPIO_Port, &GPIO_InitStruct);
 
 }
 
