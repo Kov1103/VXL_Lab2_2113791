@@ -276,6 +276,7 @@ void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 	if(counter == 200){
 		HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 0);
 		HAL_GPIO_WritePin(GPIOA, EN1_Pin | EN2_Pin | EN3_Pin, 1);
+		HAL_GPIO_WritePin (DOT_GPIO_Port , DOT_Pin , 0);
 		display7SEG(1);
 	}
 
@@ -288,6 +289,7 @@ void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 	if(counter == 100){
 		HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
 		HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 0);
+		HAL_GPIO_WritePin (DOT_GPIO_Port , DOT_Pin , 1);
 		display7SEG(3);
 	}
 
