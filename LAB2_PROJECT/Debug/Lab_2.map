@@ -2201,12 +2201,12 @@ LOAD c:/users/admin/downloads/my app/stm32cubeide_1.7.0/stm32cubeide/plugins/com
  *(.text*)
  .text.main     0x000000000800014c       0x20 ./Core/Src/main.o
                 0x000000000800014c                main
- .text.update7SEG
-                0x000000000800016c       0xc4 ./Core/Src/main.o
-                0x000000000800016c                update7SEG
  .text.display7SEG
-                0x0000000008000230      0x11c ./Core/Src/main.o
-                0x0000000008000230                display7SEG
+                0x000000000800016c      0x11c ./Core/Src/main.o
+                0x000000000800016c                display7SEG
+ .text.update7SEG
+                0x0000000008000288       0xc4 ./Core/Src/main.o
+                0x0000000008000288                update7SEG
  .text.SystemClock_Config
                 0x000000000800034c       0x76 ./Core/Src/main.o
                 0x000000000800034c                SystemClock_Config

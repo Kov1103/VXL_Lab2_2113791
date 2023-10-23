@@ -50,7 +50,6 @@ TIM_HandleTypeDef htim2;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
-void display7SEG ( int num );
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -104,40 +103,6 @@ int main(void)
   /* USER CODE END 3 */
 }
 
-const int MAX_LED = 4;
-int index_led = 0;
-int led_buffer [4] = {1, 2, 3, 4};
-void update7SEG ( int index ){
-switch ( index ){
-	case 0:
-		// Display the first 7 SEG with led_buffer [0]
-		HAL_GPIO_WritePin(GPIOA, EN0_Pin, 0);
-		HAL_GPIO_WritePin(GPIOA, EN1_Pin | EN2_Pin | EN3_Pin, 1);
-		display7SEG(led_buffer[0]);
-		break ;
-	case 1:
-		// Display the second 7 SEG with led_buffer [1]
-		HAL_GPIO_WritePin(GPIOA, EN1_Pin, 0);
-		HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN2_Pin | EN3_Pin, 1);
-		display7SEG(led_buffer[1]);
-		break ;
-	case 2:
-		// Display the third 7 SEG with led_buffer [2]
-		HAL_GPIO_WritePin(GPIOA, EN2_Pin, 0);
-		HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN1_Pin | EN3_Pin, 1);
-		display7SEG(led_buffer[2]);
-		break ;
-	case 3:
-		// Display the forth 7 SEG with led_buffer [3]
-		HAL_GPIO_WritePin(GPIOA, EN3_Pin, 0);
-		HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN1_Pin | EN2_Pin, 1);
-		display7SEG(led_buffer[3]);
-		break ;
-	default :
-		break ;
-	}
-}
-
 void display7SEG ( int num ){
 switch (num){
 	case 0:
@@ -178,6 +143,40 @@ switch (num){
 	case 9:
 		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin , 0);
 		HAL_GPIO_WritePin (GPIOB , LED7_4_Pin , 1);
+		break ;
+	}
+}
+
+const int MAX_LED = 4;
+int index_led = 0;
+int led_buffer [4] = {1, 2, 3, 4};
+void update7SEG ( int index ){
+switch ( index ){
+	case 0:
+		// Display the first 7 SEG with led_buffer [0]
+		HAL_GPIO_WritePin(GPIOA, EN0_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, EN1_Pin | EN2_Pin | EN3_Pin, 1);
+		display7SEG(led_buffer[0]);
+		break ;
+	case 1:
+		// Display the second 7 SEG with led_buffer [1]
+		HAL_GPIO_WritePin(GPIOA, EN1_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN2_Pin | EN3_Pin, 1);
+		display7SEG(led_buffer[1]);
+		break ;
+	case 2:
+		// Display the third 7 SEG with led_buffer [2]
+		HAL_GPIO_WritePin(GPIOA, EN2_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN1_Pin | EN3_Pin, 1);
+		display7SEG(led_buffer[2]);
+		break ;
+	case 3:
+		// Display the forth 7 SEG with led_buffer [3]
+		HAL_GPIO_WritePin(GPIOA, EN3_Pin, 0);
+		HAL_GPIO_WritePin(GPIOA, EN0_Pin | EN1_Pin | EN2_Pin, 1);
+		display7SEG(led_buffer[3]);
+		break ;
+	default :
 		break ;
 	}
 }
