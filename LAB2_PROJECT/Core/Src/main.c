@@ -303,14 +303,15 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int counter = 25;
+int counter = 100;
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 	{
 	if(index_led > 3) index_led = 0;
-	if(counter == 25) update7SEG(index_led++);
+	if(counter % 25 == 0) update7SEG(index_led++);
 	counter --;
-	if( counter <= 0){
-		counter = 25;
+	if( counter <= 0) {
+		counter = 100;
+		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 	}
 }
 /* USER CODE END 4 */
