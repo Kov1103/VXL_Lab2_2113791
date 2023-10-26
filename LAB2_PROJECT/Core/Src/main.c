@@ -143,6 +143,19 @@ switch ( index ){
 }
 
 uint8_t matrix_buffer[8] = {0x00 ,0xfc ,0xfe ,0x33 ,0x33 ,0xfe ,0xfc ,0x00 };
+void updateMatrixBuffer()
+{
+	uint8_t temp = matrix_buffer[0];
+	matrix_buffer[0] = matrix_buffer[1];
+	matrix_buffer[1] = matrix_buffer[2];
+	matrix_buffer[2] = matrix_buffer[3];
+	matrix_buffer[3] = matrix_buffer[4];
+	matrix_buffer[4] = matrix_buffer[5];
+	matrix_buffer[5] = matrix_buffer[6];
+	matrix_buffer[6] = matrix_buffer[7];
+	matrix_buffer[7] = temp;
+}
+
 void displayLEDMatrix(uint8_t num)
 {
 	HAL_GPIO_WritePin(ROW0_GPIO_Port, ROW0_Pin, !(num & 0x01));
@@ -262,6 +275,8 @@ int timer1_counter = 0;
 int timer1_flag = 0;
 int timer2_counter = 0;
 int timer2_flag = 0;
+int timer3_counter = 0;
+int timer3_flag = 0;
 int TIMER_CYCLE = 10;
 void setTimer0 ( int duration ){
   timer0_counter = duration / TIMER_CYCLE ;
@@ -278,6 +293,11 @@ void setTimer2 ( int duration ){
   timer2_flag = 0;
 }
 
+void setTimer3 ( int duration ){
+  timer3_counter = duration / TIMER_CYCLE ;
+  timer3_flag = 0;
+}
+
 void timer_run (){
  if( timer0_counter > 0){
 	 timer0_counter --;
@@ -290,6 +310,10 @@ void timer_run (){
  if( timer2_counter > 0){
 	 timer2_counter --;
 	 if( timer2_counter == 0) timer2_flag = 1;
+ }
+ if( timer3_counter > 0){
+	 timer3_counter --;
+	 if( timer3_counter == 0) timer3_flag = 1;
  }
 }
 /* USER CODE END 0 */
@@ -332,13 +356,16 @@ int main(void)
   setTimer0 (10);
   setTimer1 (10);
   setTimer2 (10);
+  setTimer3 (1000);
   int index = 0;
   clearMatrix ();
   while (1)
   {
 	if(timer0_flag == 1){
 		HAL_GPIO_TogglePin ( LED_RED_GPIO_Port , LED_RED_Pin );
+
 		HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+
 		setTimer0(1000);
 		second ++;
 		if( second >= 60) {
@@ -354,17 +381,24 @@ int main(void)
 		}
 		updateClockBuffer ();
 	}
+
 	if(timer1_flag == 1){
 		setTimer1(250);
 		if(index_led > 3) index_led = 0;
 		update7SEG(index_led++);
 	}
+
 	if( timer2_flag == 1){
 	  setTimer2 (10);
 	  updateLEDMatrix ( index ++) ;
 	  if( index > 7){
 	    index = 0;
 	  }
+	}
+
+	if( timer3_flag == 1){
+		updateMatrixBuffer();
+		setTimer3(1000);
 	}
   }
   /* USER CODE END 3 */
