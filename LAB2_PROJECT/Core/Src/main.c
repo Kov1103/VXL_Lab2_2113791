@@ -50,14 +50,55 @@ TIM_HandleTypeDef htim2;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_TIM2_Init(void);
-void display7SEG ( int num );
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void display7SEG ( int num ){
+switch (num){
+	case 0:
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin , 0);
+		HAL_GPIO_WritePin (GPIOB , LED7_6_Pin , 1);
+		break ;
+	case 1:
+		HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_2_Pin , 0);
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , 1);
+		break ;
+	case 2:
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_3_Pin | LED7_4_Pin | LED7_6_Pin , 0);
+		HAL_GPIO_WritePin (GPIOB , LED7_2_Pin | LED7_5_Pin , 1);
+		break ;
+	case 3:
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_6_Pin , 0);
+		HAL_GPIO_WritePin (GPIOB , LED7_4_Pin | LED7_5_Pin , 1);
+		break ;
+	case 4:
+		HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_2_Pin | LED7_5_Pin | LED7_6_Pin , 0);
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_3_Pin | LED7_4_Pin , 1);
+		break ;
+	case 5:
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin , 0);
+		HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_4_Pin , 1);
+		break ;
+	case 6:
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , 0);
+		HAL_GPIO_WritePin (GPIOB , LED7_1_Pin , 1);
+		break ;
+	case 7:
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin , 0);
+		HAL_GPIO_WritePin (GPIOB , LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , 1);
+		break ;
+	case 8:
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , 0);
+		break ;
+	case 9:
+		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin , 0);
+		HAL_GPIO_WritePin (GPIOB , LED7_4_Pin , 1);
+		break ;
+	}
+}
 /* USER CODE END 0 */
 
 /**
@@ -102,50 +143,6 @@ int main(void)
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
-}
-
-void display7SEG ( int num ){
-switch (num){
-	case 0:
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin , 0);
-		HAL_GPIO_WritePin (GPIOB , LED7_6_Pin , 1);
-		break ;
-	case 1:
-		HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_2_Pin , 0);
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , 1);
-		break ;
-	case 2:
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_3_Pin | LED7_4_Pin | LED7_6_Pin , 0);
-		HAL_GPIO_WritePin (GPIOB , LED7_2_Pin | LED7_5_Pin , 1);
-		break ;
-	case 3:
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_6_Pin , 0);
-		HAL_GPIO_WritePin (GPIOB , LED7_4_Pin | LED7_5_Pin , 1);
-		break ;
-	case 4:
-		HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_2_Pin | LED7_5_Pin | LED7_6_Pin , 0);
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_3_Pin | LED7_4_Pin , 1);
-		break ;
-	case 5:
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin , 0);
-		HAL_GPIO_WritePin (GPIOB , LED7_1_Pin | LED7_4_Pin , 1);
-		break ;
-	case 6:
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , 0);
-		HAL_GPIO_WritePin (GPIOB , LED7_1_Pin , 1);
-		break ;
-	case 7:
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin , 0);
-		HAL_GPIO_WritePin (GPIOB , LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , 1);
-		break ;
-	case 8:
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_4_Pin | LED7_5_Pin | LED7_6_Pin , 0);
-		break ;
-	case 9:
-		HAL_GPIO_WritePin (GPIOB , LED7_0_Pin | LED7_1_Pin | LED7_2_Pin | LED7_3_Pin | LED7_5_Pin | LED7_6_Pin , 0);
-		HAL_GPIO_WritePin (GPIOB , LED7_4_Pin , 1);
-		break ;
-	}
 }
 
 /**
