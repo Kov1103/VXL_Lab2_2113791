@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  000161fd  00000000  00000000  0002abf0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000a4a3  00000000  00000000  00040ded  2**0
+ 17 .debug_line   0000a4a2  00000000  00000000  00040ded  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00081d02  00000000  00000000  0004b290  2**0
+ 18 .debug_str    00081d02  00000000  00000000  0004b28f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000ccf92  2**0
+ 19 .comment      00000053  00000000  00000000  000ccf91  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  000025e8  00000000  00000000  000ccfe8  2**2
+ 20 .debug_frame  000025e8  00000000  00000000  000ccfe4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -76,175 +76,175 @@ Disassembly of section .text:
  8000144:	20000030 	.word	0x20000030
  8000148:	08001bcc 	.word	0x08001bcc
 
-0800014c <main>:
+0800014c <updateClockBuffer>:
+/* USER CODE BEGIN 0 */
+int hour = 15, minute = 8, second = 50;
+const int MAX_LED = 4;
+int index_led = 0;
+int led_buffer [4] = {1, 2, 3, 4};
+void updateClockBuffer() {
+ 800014c:	b480      	push	{r7}
+ 800014e:	af00      	add	r7, sp, #0
+	led_buffer[0] = hour / 10;
+ 8000150:	4b1a      	ldr	r3, [pc, #104]	; (80001bc <updateClockBuffer+0x70>)
+ 8000152:	681b      	ldr	r3, [r3, #0]
+ 8000154:	4a1a      	ldr	r2, [pc, #104]	; (80001c0 <updateClockBuffer+0x74>)
+ 8000156:	fb82 1203 	smull	r1, r2, r2, r3
+ 800015a:	1092      	asrs	r2, r2, #2
+ 800015c:	17db      	asrs	r3, r3, #31
+ 800015e:	1ad3      	subs	r3, r2, r3
+ 8000160:	4a18      	ldr	r2, [pc, #96]	; (80001c4 <updateClockBuffer+0x78>)
+ 8000162:	6013      	str	r3, [r2, #0]
+	led_buffer[1] = hour % 10;
+ 8000164:	4b15      	ldr	r3, [pc, #84]	; (80001bc <updateClockBuffer+0x70>)
+ 8000166:	6819      	ldr	r1, [r3, #0]
+ 8000168:	4b15      	ldr	r3, [pc, #84]	; (80001c0 <updateClockBuffer+0x74>)
+ 800016a:	fb83 2301 	smull	r2, r3, r3, r1
+ 800016e:	109a      	asrs	r2, r3, #2
+ 8000170:	17cb      	asrs	r3, r1, #31
+ 8000172:	1ad2      	subs	r2, r2, r3
+ 8000174:	4613      	mov	r3, r2
+ 8000176:	009b      	lsls	r3, r3, #2
+ 8000178:	4413      	add	r3, r2
+ 800017a:	005b      	lsls	r3, r3, #1
+ 800017c:	1aca      	subs	r2, r1, r3
+ 800017e:	4b11      	ldr	r3, [pc, #68]	; (80001c4 <updateClockBuffer+0x78>)
+ 8000180:	605a      	str	r2, [r3, #4]
+	led_buffer[2] = minute / 10;
+ 8000182:	4b11      	ldr	r3, [pc, #68]	; (80001c8 <updateClockBuffer+0x7c>)
+ 8000184:	681b      	ldr	r3, [r3, #0]
+ 8000186:	4a0e      	ldr	r2, [pc, #56]	; (80001c0 <updateClockBuffer+0x74>)
+ 8000188:	fb82 1203 	smull	r1, r2, r2, r3
+ 800018c:	1092      	asrs	r2, r2, #2
+ 800018e:	17db      	asrs	r3, r3, #31
+ 8000190:	1ad3      	subs	r3, r2, r3
+ 8000192:	4a0c      	ldr	r2, [pc, #48]	; (80001c4 <updateClockBuffer+0x78>)
+ 8000194:	6093      	str	r3, [r2, #8]
+	led_buffer[3] = minute % 10;
+ 8000196:	4b0c      	ldr	r3, [pc, #48]	; (80001c8 <updateClockBuffer+0x7c>)
+ 8000198:	6819      	ldr	r1, [r3, #0]
+ 800019a:	4b09      	ldr	r3, [pc, #36]	; (80001c0 <updateClockBuffer+0x74>)
+ 800019c:	fb83 2301 	smull	r2, r3, r3, r1
+ 80001a0:	109a      	asrs	r2, r3, #2
+ 80001a2:	17cb      	asrs	r3, r1, #31
+ 80001a4:	1ad2      	subs	r2, r2, r3
+ 80001a6:	4613      	mov	r3, r2
+ 80001a8:	009b      	lsls	r3, r3, #2
+ 80001aa:	4413      	add	r3, r2
+ 80001ac:	005b      	lsls	r3, r3, #1
+ 80001ae:	1aca      	subs	r2, r1, r3
+ 80001b0:	4b04      	ldr	r3, [pc, #16]	; (80001c4 <updateClockBuffer+0x78>)
+ 80001b2:	60da      	str	r2, [r3, #12]
+}
+ 80001b4:	bf00      	nop
+ 80001b6:	46bd      	mov	sp, r7
+ 80001b8:	bc80      	pop	{r7}
+ 80001ba:	4770      	bx	lr
+ 80001bc:	20000000 	.word	0x20000000
+ 80001c0:	66666667 	.word	0x66666667
+ 80001c4:	2000000c 	.word	0x2000000c
+ 80001c8:	20000004 	.word	0x20000004
+
+080001cc <main>:
 /**
   * @brief  The application entry point.
   * @retval int
   */
 int main(void)
 {
- 800014c:	b580      	push	{r7, lr}
- 800014e:	af00      	add	r7, sp, #0
+ 80001cc:	b580      	push	{r7, lr}
+ 80001ce:	af00      	add	r7, sp, #0
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
- 8000150:	f000 fa0c 	bl	800056c <HAL_Init>
+ 80001d0:	f000 f9cc 	bl	800056c <HAL_Init>
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
- 8000154:	f000 f87a 	bl	800024c <SystemClock_Config>
+ 80001d4:	f000 f83a 	bl	800024c <SystemClock_Config>
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
- 8000158:	f000 f900 	bl	800035c <MX_GPIO_Init>
+ 80001d8:	f000 f8c0 	bl	800035c <MX_GPIO_Init>
   MX_TIM2_Init();
- 800015c:	f000 f8b2 	bl	80002c4 <MX_TIM2_Init>
+ 80001dc:	f000 f872 	bl	80002c4 <MX_TIM2_Init>
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT (& htim2 );
- 8000160:	4816      	ldr	r0, [pc, #88]	; (80001bc <main+0x70>)
- 8000162:	f001 f96f 	bl	8001444 <HAL_TIM_Base_Start_IT>
+ 80001e0:	4816      	ldr	r0, [pc, #88]	; (800023c <main+0x70>)
+ 80001e2:	f001 f92f 	bl	8001444 <HAL_TIM_Base_Start_IT>
   /* USER CODE END 2 */
 
   /* Infinite loop */
   while (1)
   {
 	second ++;
- 8000166:	4b16      	ldr	r3, [pc, #88]	; (80001c0 <main+0x74>)
- 8000168:	681b      	ldr	r3, [r3, #0]
- 800016a:	3301      	adds	r3, #1
- 800016c:	4a14      	ldr	r2, [pc, #80]	; (80001c0 <main+0x74>)
- 800016e:	6013      	str	r3, [r2, #0]
+ 80001e6:	4b16      	ldr	r3, [pc, #88]	; (8000240 <main+0x74>)
+ 80001e8:	681b      	ldr	r3, [r3, #0]
+ 80001ea:	3301      	adds	r3, #1
+ 80001ec:	4a14      	ldr	r2, [pc, #80]	; (8000240 <main+0x74>)
+ 80001ee:	6013      	str	r3, [r2, #0]
 	if ( second >= 60) {
- 8000170:	4b13      	ldr	r3, [pc, #76]	; (80001c0 <main+0x74>)
- 8000172:	681b      	ldr	r3, [r3, #0]
- 8000174:	2b3b      	cmp	r3, #59	; 0x3b
- 8000176:	dd07      	ble.n	8000188 <main+0x3c>
+ 80001f0:	4b13      	ldr	r3, [pc, #76]	; (8000240 <main+0x74>)
+ 80001f2:	681b      	ldr	r3, [r3, #0]
+ 80001f4:	2b3b      	cmp	r3, #59	; 0x3b
+ 80001f6:	dd07      	ble.n	8000208 <main+0x3c>
 		second = 0;
- 8000178:	4b11      	ldr	r3, [pc, #68]	; (80001c0 <main+0x74>)
- 800017a:	2200      	movs	r2, #0
- 800017c:	601a      	str	r2, [r3, #0]
+ 80001f8:	4b11      	ldr	r3, [pc, #68]	; (8000240 <main+0x74>)
+ 80001fa:	2200      	movs	r2, #0
+ 80001fc:	601a      	str	r2, [r3, #0]
 		minute ++;
- 800017e:	4b11      	ldr	r3, [pc, #68]	; (80001c4 <main+0x78>)
- 8000180:	681b      	ldr	r3, [r3, #0]
- 8000182:	3301      	adds	r3, #1
- 8000184:	4a0f      	ldr	r2, [pc, #60]	; (80001c4 <main+0x78>)
- 8000186:	6013      	str	r3, [r2, #0]
+ 80001fe:	4b11      	ldr	r3, [pc, #68]	; (8000244 <main+0x78>)
+ 8000200:	681b      	ldr	r3, [r3, #0]
+ 8000202:	3301      	adds	r3, #1
+ 8000204:	4a0f      	ldr	r2, [pc, #60]	; (8000244 <main+0x78>)
+ 8000206:	6013      	str	r3, [r2, #0]
 	}
 	if( minute >= 60) {
- 8000188:	4b0e      	ldr	r3, [pc, #56]	; (80001c4 <main+0x78>)
- 800018a:	681b      	ldr	r3, [r3, #0]
- 800018c:	2b3b      	cmp	r3, #59	; 0x3b
- 800018e:	dd07      	ble.n	80001a0 <main+0x54>
+ 8000208:	4b0e      	ldr	r3, [pc, #56]	; (8000244 <main+0x78>)
+ 800020a:	681b      	ldr	r3, [r3, #0]
+ 800020c:	2b3b      	cmp	r3, #59	; 0x3b
+ 800020e:	dd07      	ble.n	8000220 <main+0x54>
 		minute = 0;
- 8000190:	4b0c      	ldr	r3, [pc, #48]	; (80001c4 <main+0x78>)
- 8000192:	2200      	movs	r2, #0
- 8000194:	601a      	str	r2, [r3, #0]
+ 8000210:	4b0c      	ldr	r3, [pc, #48]	; (8000244 <main+0x78>)
+ 8000212:	2200      	movs	r2, #0
+ 8000214:	601a      	str	r2, [r3, #0]
 		hour ++;
- 8000196:	4b0c      	ldr	r3, [pc, #48]	; (80001c8 <main+0x7c>)
- 8000198:	681b      	ldr	r3, [r3, #0]
- 800019a:	3301      	adds	r3, #1
- 800019c:	4a0a      	ldr	r2, [pc, #40]	; (80001c8 <main+0x7c>)
- 800019e:	6013      	str	r3, [r2, #0]
+ 8000216:	4b0c      	ldr	r3, [pc, #48]	; (8000248 <main+0x7c>)
+ 8000218:	681b      	ldr	r3, [r3, #0]
+ 800021a:	3301      	adds	r3, #1
+ 800021c:	4a0a      	ldr	r2, [pc, #40]	; (8000248 <main+0x7c>)
+ 800021e:	6013      	str	r3, [r2, #0]
 	}
 	if( hour >=24){
- 80001a0:	4b09      	ldr	r3, [pc, #36]	; (80001c8 <main+0x7c>)
- 80001a2:	681b      	ldr	r3, [r3, #0]
- 80001a4:	2b17      	cmp	r3, #23
- 80001a6:	dd02      	ble.n	80001ae <main+0x62>
+ 8000220:	4b09      	ldr	r3, [pc, #36]	; (8000248 <main+0x7c>)
+ 8000222:	681b      	ldr	r3, [r3, #0]
+ 8000224:	2b17      	cmp	r3, #23
+ 8000226:	dd02      	ble.n	800022e <main+0x62>
 		hour = 0;
- 80001a8:	4b07      	ldr	r3, [pc, #28]	; (80001c8 <main+0x7c>)
- 80001aa:	2200      	movs	r2, #0
- 80001ac:	601a      	str	r2, [r3, #0]
+ 8000228:	4b07      	ldr	r3, [pc, #28]	; (8000248 <main+0x7c>)
+ 800022a:	2200      	movs	r2, #0
+ 800022c:	601a      	str	r2, [r3, #0]
 	}
 	updateClockBuffer ();
- 80001ae:	f000 f80d 	bl	80001cc <updateClockBuffer>
+ 800022e:	f7ff ff8d 	bl	800014c <updateClockBuffer>
 	HAL_Delay (1000) ;
- 80001b2:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
- 80001b6:	f000 fa3b 	bl	8000630 <HAL_Delay>
+ 8000232:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
+ 8000236:	f000 f9fb 	bl	8000630 <HAL_Delay>
 	second ++;
- 80001ba:	e7d4      	b.n	8000166 <main+0x1a>
- 80001bc:	20000048 	.word	0x20000048
- 80001c0:	20000008 	.word	0x20000008
- 80001c4:	20000004 	.word	0x20000004
- 80001c8:	20000000 	.word	0x20000000
-
-080001cc <updateClockBuffer>:
-}
-
-const int MAX_LED = 4;
-int index_led = 0;
-int led_buffer [4] = {1, 2, 3, 4};
-void updateClockBuffer() {
- 80001cc:	b480      	push	{r7}
- 80001ce:	af00      	add	r7, sp, #0
-	led_buffer[0] = hour / 10;
- 80001d0:	4b1a      	ldr	r3, [pc, #104]	; (800023c <updateClockBuffer+0x70>)
- 80001d2:	681b      	ldr	r3, [r3, #0]
- 80001d4:	4a1a      	ldr	r2, [pc, #104]	; (8000240 <updateClockBuffer+0x74>)
- 80001d6:	fb82 1203 	smull	r1, r2, r2, r3
- 80001da:	1092      	asrs	r2, r2, #2
- 80001dc:	17db      	asrs	r3, r3, #31
- 80001de:	1ad3      	subs	r3, r2, r3
- 80001e0:	4a18      	ldr	r2, [pc, #96]	; (8000244 <updateClockBuffer+0x78>)
- 80001e2:	6013      	str	r3, [r2, #0]
-	led_buffer[1] = hour % 10;
- 80001e4:	4b15      	ldr	r3, [pc, #84]	; (800023c <updateClockBuffer+0x70>)
- 80001e6:	6819      	ldr	r1, [r3, #0]
- 80001e8:	4b15      	ldr	r3, [pc, #84]	; (8000240 <updateClockBuffer+0x74>)
- 80001ea:	fb83 2301 	smull	r2, r3, r3, r1
- 80001ee:	109a      	asrs	r2, r3, #2
- 80001f0:	17cb      	asrs	r3, r1, #31
- 80001f2:	1ad2      	subs	r2, r2, r3
- 80001f4:	4613      	mov	r3, r2
- 80001f6:	009b      	lsls	r3, r3, #2
- 80001f8:	4413      	add	r3, r2
- 80001fa:	005b      	lsls	r3, r3, #1
- 80001fc:	1aca      	subs	r2, r1, r3
- 80001fe:	4b11      	ldr	r3, [pc, #68]	; (8000244 <updateClockBuffer+0x78>)
- 8000200:	605a      	str	r2, [r3, #4]
-	led_buffer[2] = minute / 10;
- 8000202:	4b11      	ldr	r3, [pc, #68]	; (8000248 <updateClockBuffer+0x7c>)
- 8000204:	681b      	ldr	r3, [r3, #0]
- 8000206:	4a0e      	ldr	r2, [pc, #56]	; (8000240 <updateClockBuffer+0x74>)
- 8000208:	fb82 1203 	smull	r1, r2, r2, r3
- 800020c:	1092      	asrs	r2, r2, #2
- 800020e:	17db      	asrs	r3, r3, #31
- 8000210:	1ad3      	subs	r3, r2, r3
- 8000212:	4a0c      	ldr	r2, [pc, #48]	; (8000244 <updateClockBuffer+0x78>)
- 8000214:	6093      	str	r3, [r2, #8]
-	led_buffer[3] = minute % 10;
- 8000216:	4b0c      	ldr	r3, [pc, #48]	; (8000248 <updateClockBuffer+0x7c>)
- 8000218:	6819      	ldr	r1, [r3, #0]
- 800021a:	4b09      	ldr	r3, [pc, #36]	; (8000240 <updateClockBuffer+0x74>)
- 800021c:	fb83 2301 	smull	r2, r3, r3, r1
- 8000220:	109a      	asrs	r2, r3, #2
- 8000222:	17cb      	asrs	r3, r1, #31
- 8000224:	1ad2      	subs	r2, r2, r3
- 8000226:	4613      	mov	r3, r2
- 8000228:	009b      	lsls	r3, r3, #2
- 800022a:	4413      	add	r3, r2
- 800022c:	005b      	lsls	r3, r3, #1
- 800022e:	1aca      	subs	r2, r1, r3
- 8000230:	4b04      	ldr	r3, [pc, #16]	; (8000244 <updateClockBuffer+0x78>)
- 8000232:	60da      	str	r2, [r3, #12]
-}
- 8000234:	bf00      	nop
- 8000236:	46bd      	mov	sp, r7
- 8000238:	bc80      	pop	{r7}
- 800023a:	4770      	bx	lr
- 800023c:	20000000 	.word	0x20000000
- 8000240:	66666667 	.word	0x66666667
- 8000244:	2000000c 	.word	0x2000000c
- 8000248:	20000004 	.word	0x20000004
+ 800023a:	e7d4      	b.n	80001e6 <main+0x1a>
+ 800023c:	20000048 	.word	0x20000048
+ 8000240:	20000008 	.word	0x20000008
+ 8000244:	20000004 	.word	0x20000004
+ 8000248:	20000000 	.word	0x20000000
 
 0800024c <SystemClock_Config>:
 /**
@@ -968,7 +968,7 @@ LoopFillZerobss:
  800054a:	f001 fb13 	bl	8001b74 <__libc_init_array>
 /* Call the application's entry point.*/
   bl main
- 800054e:	f7ff fdfd 	bl	800014c <main>
+ 800054e:	f7ff fe3d 	bl	80001cc <main>
   bx lr
  8000552:	4770      	bx	lr
   ldr r0, =_sdata
