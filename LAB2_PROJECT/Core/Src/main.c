@@ -119,7 +119,7 @@ int main(void)
   /* USER CODE END 2 */
 
   /* Infinite loop */
-  setTimer0 (1000);
+  setTimer0 (10);
   while (1)
   {
 	if( timer0_flag == 1){
